@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="title">Breakout Wallpaper</string>
+    <string name="author">Jake Wharton</string>
+    <string name="description">Play the brick-busting game of breakout around your icons.</string>
+    <string name="version_name">1.0.1</string>
+    <string name="version_code_key">version</string>
+    
+    <string name="welcome_firstrun">Thanks for installing!\n\nWould you like to read the instructions?</string>
+    <string name="welcome_upgrade">Thanks for upgrading!\n\nWould you like to read the change log?</string>
+    <string name="welcome_picker_toast">Choose \"Breakout Wallpaper\" from the list.</string>
+    
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    <string name="gameover">GAME OVER</string>
+    
+    <string name="display_widgetlocations_default"/>
+    <string name="widgetlocations_howto">Draw rectangles to indicate widget positions. Long press to delete.</string>
+    
+    <string name="reset_game">Are you sure you want to reset all game-related settings?</string>
+    <string name="reset_game_toast">All game-related settings reset.</string>
+    <string name="reset_display">Are you sure you want to reset all display-related settings?</string>
+    <string name="reset_display_toast">All display-related settings reset.</string>
+    <string name="reset_color">Are you sure you want to reset all color-related settings?</string>
+    <string name="reset_color_toast">All color-related settings reset.</string>
+    <string name="reset_all">Are you sure you want to reset all settings?</string>
+    <string name="reset_all_toast">All settings reset.</string>
+    
+    <string name="settings_key">settings</string>
+    <string name="settings_header">Settings</string>
+    <string name="settings_game">Game</string>
+    <string name="settings_game_key">game</string>
+    <string name="settings_game_summary">Play mode, ball count...</string>
+    <string name="settings_display">Display</string>
+    <string name="settings_display_key">display</string>
+    <string name="settings_display_summary">Layout, offsets, FPS...</string>
+    <string name="settings_color">Colors and Background</string>
+    <string name="settings_color_key">colors</string>
+    <string name="settings_color_summary">Background, bricks, ball...</string>
+    <string name="settings_reset">Reset</string>
+    <string name="settings_reset_key">reset</string>
+    
+    <string name="settings_game_mode">Play Mode</string>
+    <string name="settings_game_mode_key">game_mode</string>
+    <string name="settings_game_mode_summary">Endless or levels</string>
+    <string name="settings_game_endlessregen">Endless Regen Percent</string>
+    <string name="settings_game_endlessregen_key">game_endlessregen</string>
+    <string name="settings_game_endlessregen_summary">Percentage of blocks remaining at which to begin regen</string>
+    <string name="settings_game_usercontrol">User Control</string>
+    <string name="settings_game_usercontrol_key">game_usercontrol</string>
+    <string name="settings_game_usercontrol_summary">Allow touches on the screen to influence ball direction</string>
+    <string name="settings_game_ballcount">Ball Count</string>
+    <string name="settings_game_ballcount_key">game_ballcount</string>
+    <string name="settings_game_ballcount_summary">Number of balls in the game!</string>
+    <string name="settings_game_reset">Reset Game Settings</string>
+    <string name="settings_game_reset_key">game_reset</string>
+    <string name="settings_game_reset_summary">All game settings back to default</string>
+    
+    <string name="settings_display_fps">FPS</string>
+    <string name="settings_display_fps_key">display_fps</string>
+    <string name="settings_display_fps_summary">Number of times per second to advance the game</string>
+    <string name="settings_display_layout">Layout</string>
+    <string name="settings_display_iconrows">Icon Rows</string>
+    <string name="settings_display_iconrows_key">display_iconrows</string>
+    <string name="settings_display_iconrows_summary">Number of icon rows on your home screen</string>
+    <string name="settings_display_iconcols">Icon Columns</string>
+    <string name="settings_display_iconcols_key">display_iconcols</string>
+    <string name="settings_display_iconcols_summary">Number of icon columns on your home screen</string>
+    <string name="settings_display_rowspacing">Icon Row Cell Spacing</string>
+    <string name="settings_display_rowspacing_key">display_rowspacing</string>
+    <string name="settings_display_rowspacing_summary">Number of cells in an icon row</string>
+    <string name="settings_display_colspacing">Icon Column Cell Spacing</string>
+    <string name="settings_display_colspacing_key">display_colspacing</string>
+    <string name="settings_display_colspacing_summary">Number of cells in an icon column</string>
+    <string name="settings_display_widgetlocations">Widget Locations</string>
+    <string name="settings_display_widgetlocations_key">display_widgetlocations</string>
+    <string name="settings_display_widgetlocations_summary">Specify widget locations for optimal board layout</string>
+    <string name="settings_display_padding">Grid Padding</string>
+    <string name="settings_display_padding_key">display_padding</string>
+    <string name="settings_display_padding_summary">Padding offsets on the four edges of the grid</string>
+    <string name="settings_display_padding_top">Top</string>
+    <string name="settings_display_padding_top_key">display_padding_top</string>
+    <string name="settings_display_padding_top_summary"></string>
+    <string name="settings_display_padding_bottom">Bottom</string>
+    <string name="settings_display_padding_bottom_key">display_padding_bottom</string>
+    <string name="settings_display_padding_bottom_summary"></string>
+    <string name="settings_display_padding_left">Left</string>
+    <string name="settings_display_padding_left_key">display_padding_left</string>
+    <string name="settings_display_padding_left_summary"></string>
+    <string name="settings_display_padding_right">Right</string>
+    <string name="settings_display_padding_right_key">display_padding_right</string>
+    <string name="settings_display_padding_right_summary"></string>
+    <string name="settings_display_reset">Reset Display Settings</string>
+    <string name="settings_display_reset_key">display_reset</string>
+    <string name="settings_display_reset_summary">All display settings back to default</string>
+    
+    <string name="settings_color_background_header">Background</string>
+    <string name="settings_color_background">Background Color</string>
+    <string name="settings_color_background_key">color_game_background</string>
+    <string name="settings_color_background_summary"></string>
+    <string name="settings_color_bgimage">Background Image</string>
+    <string name="settings_color_bgimage_key">color_game_bgimage</string>
+    <string name="settings_color_bgimage_toast">Background image successfully set.</string>
+    <string name="settings_color_bgimage_summary">Image to display as opposed to a solid color</string>
+    <string name="settings_color_bgopacity">Background Opacity</string>
+    <string name="settings_color_bgopacity_key">color_game_bgopacity</string>
+    <string name="settings_color_bgopacity_summary">The level of opacity of the background image</string>
+    <string name="settings_color_bgimageclear">Clear Background Image</string>
+    <string name="settings_color_bgimageclear_key">color_game_bgimage_clear</string>
+    <string name="settings_color_bgimageclear_toast">Background image cleared.</string>
+    <string name="settings_color_bgimageclear_summary"></string>
+    <string name="settings_color_ball_header">Ball</string>
+    <string name="settings_color_ball">Ball Color</string>
+    <string name="settings_color_ball_key">color_ball</string>
+    <string name="settings_color_ball_summary">Color of game balls</string>
+    <string name="settings_color_blocks_header">Blocks</string>
+    <string name="settings_color_block1">Block 1 Color</string>
+    <string name="settings_color_block1_key">color_block1</string>
+    <string name="settings_color_block1_summary">First color of blocks</string>
+    <string name="settings_color_block2">Block 2 Color</string>
+    <string name="settings_color_block2_key">color_block2</string>
+    <string name="settings_color_block2_summary">Second color of blocks</string>
+    <string name="settings_color_block3">Block 3 Color</string>
+    <string name="settings_color_block3_key">color_block3</string>
+    <string name="settings_color_block3_summary">Third color of blocks</string>
+    <string name="settings_color_style_header">Drawing Style</string>
+    <string name="settings_color_blockstyle">Block Drawing Style</string>
+    <string name="settings_color_blockstyle_key">color_blockstyle</string>
+    <string name="settings_color_blockstyle_summary">Fill or stroke</string>
+    <string name="settings_color_ballstyle">Ball Drawing Style</string>
+    <string name="settings_color_ballstyle_key">color_ballstyle</string>
+    <string name="settings_color_ballstyle_summary">Fill or stroke</string>
+    <string name="settings_color_reset">Reset Color Settings</string>
+    <string name="settings_color_reset_key">color_reset</string>
+    <string name="settings_color_reset_summary">All color settings back to default</string>
+    
+    <string name="about">About</string>
+    <string name="about_key">about</string>
+    <string name="about_summary">Instructions, change log, credits...</string>
+    <string name="about_header_key">about_header</string>
+    <string name="about_header_summary">An Android live wallpaper which plays the brick-busting game of breakout around your icons.</string>
+    <string name="about_contents">Contents</string>
+    <string name="instructions">Instructions</string>
+    <string name="instructions_key">instructions</string>
+    <string name="instructions_title">Breakout Wallpaper Instructions</string>
+    <string name="instructions_summary">Simple overview of usage</string>
+    <string name="changelog">Change Log</string>
+    <string name="changelog_key">changelog</string>
+    <string name="changelog_title">Breakout Wallpaper Change Log</string>
+    <string name="changelog_summary">Summary of differences between versions</string>
+    <string name="credits">Credits</string>
+    <string name="credits_key">credits</string>
+    <string name="credits_title">Breakout Wallpaper Credits</string>
+    <string name="credits_summary">Additional attribution</string>
+    <string name="todo">To Do / Requests</string>
+    <string name="todo_key">todo</string>
+    <string name="todo_title"> Breakout Wallpaper To Do and Requests</string>
+    <string name="todo_summary">List of features pending implementation</string>
+    
+    <string name="about_aroundtheweb_header">Around The Web</string>
+    <string name="github">GitHub Project</string>
+    <string name="github_key">github</string>
+    <string name="github_href">http://github.com/JakeWharton/BreakoutWallpaper/</string>
+    <string name="github_summary">We are open source! Fork and contribute code.</string>
+    <string name="xda">XDA Developers</string>
+    <string name="xda_key">xda</string>
+    <string name="xda_href">http://forum.xda-developers.com/showthread.php?p=7979986</string>
+    <string name="xda_summary">Official thread of development information</string>
+    
+    <string name="information_header">Information</string>
+    <string name="information_version">Version</string>
+    <string name="information_version_key">information_version</string>
+    <string name="information_author">Author</string>
+    <string name="information_author_key">information_author</string>
+    
+    <string name="information_contact">Contact</string>
+    <string name="information_contact_email">E-Mail</string>
+    <string name="information_contact_email_key">information_contact_email</string>
+    <string name="information_contact_email_summary">JakeWharton@GMail.com</string>
+    <string name="information_contact_email_data">jakewharton@gmail.com</string>
+    <string name="information_contact_twitter">Twitter</string>
+    <string name="information_contact_twitter_key">information_contact_twitter</string>
+    <string name="information_contact_twitter_summary">\@JakeWharton</string>
+    <string name="information_contact_twitter_data">http://twitter.com/JakeWharton</string>
+    <string name="information_contact_website">Website</string>
+    <string name="information_contact_website_key">information_contact_website</string>
+    <string name="information_contact_website_summary">http://jakewharton.com</string>
+    <string name="information_contact_website_data">http://jakewharton.com</string>
+    <string name="information_market">Android Market</string>
+    <string name="information_market_view">View Other Applications</string>
+    <string name="information_market_view_key">information_market_view</string>
+    <string name="information_market_view_summary">Click here to view my other applications on the Android Market</string>
+    <string name="information_market_view_data">market://search?q=pub:%22Jake%20Wharton%22</string>
+    
+    <string name="menu_reset">Reset All</string>
+</resources>
