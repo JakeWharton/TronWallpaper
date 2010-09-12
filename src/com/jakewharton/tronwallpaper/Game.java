@@ -462,7 +462,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 				this.performResize(this.mScreenWidth, this.mScreenHeight);
 			}
 
-	    	this.newGame();
+	    	this.newBoard();
 		}
 
     	if (Wallpaper.LOG_VERBOSE) {
@@ -485,7 +485,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     /**
      * Reset the game state to that of first initialization.
      */
-    public void newGame() {
+    public void newBoard() {
     	if (Wallpaper.LOG_VERBOSE) {
     		Log.v(Game.TAG, "> newGame()");
     	}
@@ -516,7 +516,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     		}
     	}
     	
-    	this.newLife();
+    	this.newGame();
     	
     	if (Wallpaper.LOG_VERBOSE) {
     		Log.v(Game.TAG, "< newGame()");
@@ -524,9 +524,9 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     }
     
     /**
-     * Reset snake.
+     * Reset players.
      */
-    private void newLife() {
+    private void newGame() {
     	//Create player and opponent
     	this.mPlayer.clear();
     	this.mOpponent.clear();
@@ -558,29 +558,37 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     }
     
     /**
-     * Iterate all entities one step.
+     * Iterate player and opponent.
      */
     public void tick() {
     	this.determineNextPlayerDirection();
     	final Point playerNewPoint = Game.move(this.mPlayer.getLast(), this.mDirectionPlayer);
+    	this.mPlayer.add(playerNewPoint);
     	
     	this.determineNextOpponentDirection();
     	final Point opponentNewPoint = Game.move(this.mOpponent.getLast(), this.mDirectionOpponent);
-    	
-    	//TODO: collision check
-    	
-    	this.mPlayer.add(playerNewPoint);
     	this.mOpponent.add(opponentNewPoint);
+    	
+    	if (this.isCollision(playerNewPoint) || this.isCollision(opponentNewPoint)) {
+    		this.newGame();
+    	}
     }
     
     /**
-     * Test if a point is in the opponent light cycle.
+     * Test if a point collides with the player or opponent.
      * 
      * @param testPoint Point to test.
-     * @return Whether or not the point is in the opponent.
+     * @return Whether or not the point collides.
      */
-    private boolean isPointInOpponent(final Point testPoint) {
+    private boolean isCollision(final Point testPoint) {
+    	//Test opponent first
     	for (final Point point : this.mOpponent) {
+    		if (Game.pointEquals(point, testPoint)) {
+    			return true;
+    		}
+    	}
+    	//Test player
+    	for (final Point point : this.mPlayer) {
     		if (Game.pointEquals(point, testPoint)) {
     			return true;
     		}
@@ -592,11 +600,11 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      * Use line-of-sight to determine next direction of travel.
      */
     private void determineNextPlayerDirection() {
-		final Point lightCycleHead = this.mPlayer.getFirst();
+		final Point head = this.mPlayer.getLast();
 		
 		//Try the user direction first
-		final Point newPoint = Game.move(lightCycleHead, this.mWantsToGo);
-		if ((this.mWantsToGo != null) && this.isValidPosition(newPoint) && !this.isPointInOpponent(newPoint)) {
+		final Point newPoint = Game.move(head, this.mWantsToGo);
+		if ((this.mWantsToGo != null) && this.isValidPosition(newPoint) && !this.isCollision(newPoint)) {
 			//Follow user direction and GTFO
 			this.mDirectionPlayer = this.mWantsToGo;
 			return;
@@ -619,7 +627,10 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     }
     
     private void determineNextOpponentDirection() {
+    	Game.Direction nextDirection = null;
+    	//TODO: determine nextDirection
     	
+    	//this.mDirectionOpponent = nextDirection;
     }
 
     /**

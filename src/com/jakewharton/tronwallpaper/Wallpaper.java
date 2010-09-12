@@ -271,7 +271,7 @@ public class Wallpaper extends WallpaperService {
         	if (event.getAction() == MotionEvent.ACTION_DOWN) {
         		final long touch = System.currentTimeMillis();
         		if (touch - this.mLastTouch < Wallpaper.RESET_THRESHOLD) {
-        			this.mGame.newGame();
+        			this.mGame.newBoard();
         			this.mLastTouch = 0;
         		} else if (this.mIsControllable) {
 	        		this.mLastTouch = touch;
