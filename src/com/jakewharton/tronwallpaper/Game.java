@@ -239,11 +239,6 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      */
     private final Paint mPlayerForeground;
     
-    /**
-     * Players starting point.
-     */
-    private Point mPlayersStartingPoint;
-    
     
     
     /**
@@ -258,8 +253,8 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	this.mWallsForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
     	this.mWallsForeground.setStyle(Paint.Style.FILL);
         this.mBackgroundPaint = new Paint();
-        this.mOpponentForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
-        this.mPlayerForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.mOpponentForeground = new Paint();
+        this.mPlayerForeground = new Paint();
         
         this.mPlayer = new LinkedList<Point>();
         this.mOpponent = new LinkedList<Point>();
@@ -530,6 +525,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     		}
     	}
     	
+    	//Initialize game
     	this.newGame();
     	
     	if (Wallpaper.LOG_VERBOSE) {
@@ -545,17 +541,28 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	this.mPlayer.clear();
     	this.mOpponent.clear();
     	
-    	//Starting position
-    	this.mPlayersStartingPoint = new Point(this.mCellsWide / 2, ((this.mIconRows / 2) * (this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW)) + (Game.CELLS_BETWEEN_ROW / 2));
-    	this.mPlayer.add(this.mPlayersStartingPoint);
-    	this.mOpponent.add(this.mPlayersStartingPoint);
-    	
-    	//Opposite starting directions
-    	this.mDirectionPlayer = Game.Direction.EAST;
-    	this.mDirectionOpponent = this.mDirectionPlayer.getOpposite();
+    	//Get starting position for players
+    	this.mPlayer.add(this.getRandomValidPosition());
+    	this.mOpponent.add(this.getRandomValidPosition());
     	
     	//No user direction
     	this.mWantsToGo = null;
+    }
+    
+    /**
+     * Get a random valid position on the board.
+     * 
+     * @return Point.
+     */
+    private Point getRandomValidPosition() {
+    	final Point position = new Point();
+    	while (true) {
+    		position.x = Game.RANDOM.nextInt(this.mCellsWide);
+    		position.y = Game.RANDOM.nextInt(this.mCellsTall);
+    		if (!this.isCollision(position)) {
+    			return position;
+    		}
+    	}
     }
     
     /**
@@ -577,15 +584,18 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     public void tick() {
     	this.determineNextPlayerDirection();
     	final Point playerNewPoint = Game.move(this.mPlayer.getLast(), this.mDirectionPlayer);
+    	if (this.isCollision(playerNewPoint)) {
+    		this.newGame();
+    		return;
+    	}
+    	this.mPlayer.add(playerNewPoint);
     	
     	this.determineNextOpponentDirection();
     	final Point opponentNewPoint = Game.move(this.mOpponent.getLast(), this.mDirectionOpponent);
-    	
-    	if (this.isCollision(playerNewPoint) || this.isCollision(opponentNewPoint)) {
+    	if (this.isCollision(opponentNewPoint)) {
     		this.newGame();
+    		return;
     	}
-    	
-    	this.mPlayer.add(playerNewPoint);
     	this.mOpponent.add(opponentNewPoint);
     }
     
@@ -596,15 +606,19 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      * @return Whether or not the point collides.
      */
     private boolean isCollision(final Point testPoint) {
+    	//Test for walls
+    	if (!this.isValidPosition(testPoint)) {
+    		return true;
+    	}
     	//Test opponent first
     	for (final Point point : this.mOpponent) {
-    		if (Game.pointEquals(point, testPoint) && !Game.pointEquals(point, this.mPlayersStartingPoint)) {
+    		if (Game.pointEquals(point, testPoint)) {
     			return true;
     		}
     	}
     	//Test player
     	for (final Point point : this.mPlayer) {
-    		if (Game.pointEquals(point, testPoint) && !Game.pointEquals(point, this.mPlayersStartingPoint)) {
+    		if (Game.pointEquals(point, testPoint)) {
     			return true;
     		}
     	}
@@ -619,14 +633,30 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 		
 		//Try the user direction first
 		final Point newPoint = Game.move(head, this.mWantsToGo);
-		if ((this.mWantsToGo != null) && this.isValidPosition(newPoint) && !this.isCollision(newPoint)) {
+		if ((this.mWantsToGo != null) && !this.isCollision(newPoint)) {
 			//Follow user direction and GTFO
 			this.mDirectionPlayer = this.mWantsToGo;
 			return;
 		}
 		
+    	//TODO: real AI
 		Game.Direction nextDirection = null;
-		//TODO: determine nextDirection
+    	//favor current direction most of the time
+    	if (!this.isCollision(Game.move(head, this.mDirectionPlayer)) && (Game.RANDOM.nextInt(250) != 0)) {
+    		nextDirection = this.mDirectionPlayer;
+    	} else {
+	    	final List<Game.Direction> directions = new LinkedList<Game.Direction>();
+	    	for (final Game.Direction direction : Game.Direction.values()) {
+	    		if (!this.isCollision(Game.move(head, direction))) {
+	    			directions.add(direction);
+	    		}
+	    	}
+	    	if (directions.size() == 0) {
+	    		nextDirection = Game.Direction.NORTH;
+	    	} else {
+	    		nextDirection = directions.get(Game.RANDOM.nextInt(directions.size()));
+	    	}
+    	}
 		
 		//If the wants-to-go direction exists and the AI forced us to change direction then wants-to-go direction
 		//is impossible and should be cleared
@@ -638,14 +668,27 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 			}
 		}
 		
-		//this.mDirectionPlayer = nextDirection;
+		this.mDirectionPlayer = nextDirection;
     }
     
     private void determineNextOpponentDirection() {
-    	Game.Direction nextDirection = null;
-    	//TODO: determine nextDirection
-    	
-    	//this.mDirectionOpponent = nextDirection;
+    	//TODO: real AI
+    	final Point position = this.mOpponent.getLast();
+    	//favor current direction most of the time
+    	if (!this.isCollision(Game.move(position, this.mDirectionOpponent)) && (Game.RANDOM.nextInt(250) != 0)) {
+    		return;
+    	}
+    	final List<Game.Direction> directions = new LinkedList<Game.Direction>();
+    	for (final Game.Direction direction : Game.Direction.values()) {
+    		if (!this.isCollision(Game.move(position, direction))) {
+    			directions.add(direction);
+    		}
+    	}
+    	if (directions.size() == 0) {
+    		this.mDirectionOpponent = Game.Direction.NORTH;
+    	} else {
+    		this.mDirectionOpponent = directions.get(Game.RANDOM.nextInt(directions.size()));
+    	}
     }
 
     /**

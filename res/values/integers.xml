@@ -45,11 +45,11 @@
 	<integer name="display_colspacing_max">21</integer>
 	
 	
-	<integer name="color_background_default">0xff3d3d3d</integer>
+	<integer name="color_background_default">0xff060d11</integer>
 	<integer name="color_walls_default">0xff6161a1</integer>
 	<integer name="color_bgopacity_default">0xff</integer>
 	<integer name="color_bgopacity_min">0x00</integer>
 	<integer name="color_bgopacity_max">0xff</integer>
-	<integer name="color_player_default">0xffecece2</integer>
-	<integer name="color_opponent_default">0xffecece2</integer>
+	<integer name="color_player_default">0xff60ebfe</integer>
+	<integer name="color_opponent_default">0xffffc200</integer>
 </resources>
