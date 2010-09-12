@@ -36,13 +36,13 @@
 	<integer name="display_iconcols_min">3</integer>
 	<integer name="display_iconcols_max">8</integer>
 	
-	<integer name="display_rowspacing_default">15</integer>
-	<integer name="display_rowspacing_min">10</integer>
-	<integer name="display_rowspacing_max">20</integer>
+	<integer name="display_rowspacing_default">21</integer>
+	<integer name="display_rowspacing_min">15</integer>
+	<integer name="display_rowspacing_max">30</integer>
 	
-	<integer name="display_colspacing_default">6</integer>
-	<integer name="display_colspacing_min">4</integer>
-	<integer name="display_colspacing_max">8</integer>
+	<integer name="display_colspacing_default">15</integer>
+	<integer name="display_colspacing_min">9</integer>
+	<integer name="display_colspacing_max">21</integer>
 	
 	
 	<integer name="color_background_default">0xff3d3d3d</integer>

@@ -77,6 +77,16 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 	 */
 	private static final boolean CELL_BLANK = true;
 	
+	/**
+	 * Block cells between icon rows.
+	 */
+	private static final int CELLS_BETWEEN_ROW = 3;
+	
+	/**
+	 * Block cells between icon columns.
+	 */
+	private static final int CELLS_BETWEEN_COLUMN = 3;
+	
 
 	
 	/**
@@ -229,6 +239,11 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      */
     private final Paint mPlayerForeground;
     
+    /**
+     * Players starting point.
+     */
+    private Point mPlayersStartingPoint;
+    
     
     
     /**
@@ -241,8 +256,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 
         //Create Paints
     	this.mWallsForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
-    	this.mWallsForeground.setStyle(Paint.Style.STROKE);
-    	this.mWallsForeground.setStrokeWidth(2);
+    	this.mWallsForeground.setStyle(Paint.Style.FILL);
         this.mBackgroundPaint = new Paint();
         this.mOpponentForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.mPlayerForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -445,8 +459,8 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 		}
 		
 		if (hasLayoutChanged) {
-	    	this.mCellsWide = (this.mIconCols * (mCellColumnSpacing + 1)) + 1;
-	    	this.mCellsTall = (this.mIconRows * (mCellRowSpacing + 1)) + 1;
+	    	this.mCellsWide = (this.mIconCols * (this.mCellColumnSpacing + Game.CELLS_BETWEEN_COLUMN)) + Game.CELLS_BETWEEN_COLUMN;
+	    	this.mCellsTall = (this.mIconRows * (this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW)) + Game.CELLS_BETWEEN_ROW;
 	    	
 	    	if (Wallpaper.LOG_DEBUG) {
 	    		Log.d(Game.TAG, "Cells Wide: " + this.mCellsWide);
@@ -487,15 +501,15 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      */
     public void newBoard() {
     	if (Wallpaper.LOG_VERBOSE) {
-    		Log.v(Game.TAG, "> newGame()");
+    		Log.v(Game.TAG, "> newBoard()");
     	}
 
     	//Initialize board
-    	final int cellWidth = this.mCellColumnSpacing + 1;
-    	final int cellHeight = this.mCellRowSpacing + 1;
+    	final int iconCellsWidth = this.mCellColumnSpacing + Game.CELLS_BETWEEN_COLUMN;
+    	final int iconCellsHeight = this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW;
     	for (int y = 0; y < this.mCellsTall; y++) {
     		for (int x = 0; x < this.mCellsWide; x++) {
-    			this.mBoard[y][x] = ((x % cellWidth == 0) || (y % cellHeight == 0)) ? Game.CELL_BLANK : Game.CELL_WALL;
+    			this.mBoard[y][x] = (((x % iconCellsWidth) < Game.CELLS_BETWEEN_COLUMN) || ((y % iconCellsHeight) < Game.CELLS_BETWEEN_ROW)) ? Game.CELL_BLANK : Game.CELL_WALL;
     		}
     	}
     	
@@ -505,10 +519,10 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     			Log.d(Game.TAG, "Widget: L=" + widget.left + ", T=" + widget.top + ", R=" + widget.right + ", B=" + widget.bottom);
     		}
     		
-    		final int left = (widget.left * cellWidth) + 1;
-    		final int top = (widget.top * cellHeight) + 1;
-    		final int bottom = (widget.bottom * cellHeight) + this.mCellRowSpacing;
-    		final int right = (widget.right * cellWidth) + this.mCellColumnSpacing;
+    		final int left = (widget.left * iconCellsWidth) + 1;
+    		final int top = (widget.top * iconCellsHeight) + 1;
+    		final int right = (widget.right * iconCellsWidth) + this.mCellColumnSpacing;
+    		final int bottom = (widget.bottom * iconCellsHeight) + this.mCellRowSpacing;
     		for (int y = top; y <= bottom; y++) {
     			for (int x = left; x <= right; x++) {
     				this.mBoard[y][x] = Game.CELL_WALL;
@@ -519,7 +533,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	this.newGame();
     	
     	if (Wallpaper.LOG_VERBOSE) {
-    		Log.v(Game.TAG, "< newGame()");
+    		Log.v(Game.TAG, "< newBoard()");
     	}
     }
     
@@ -532,9 +546,9 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	this.mOpponent.clear();
     	
     	//Starting position
-    	final Point startingPosition = new Point(this.mCellsWide / 2, ((this.mIconRows / 2) * (this.mCellRowSpacing + 1)));
-    	this.mPlayer.add(startingPosition);
-    	this.mOpponent.add(startingPosition);
+    	this.mPlayersStartingPoint = new Point(this.mCellsWide / 2, ((this.mIconRows / 2) * (this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW)) + (Game.CELLS_BETWEEN_ROW / 2));
+    	this.mPlayer.add(this.mPlayersStartingPoint);
+    	this.mOpponent.add(this.mPlayersStartingPoint);
     	
     	//Opposite starting directions
     	this.mDirectionPlayer = Game.Direction.EAST;
@@ -563,15 +577,16 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     public void tick() {
     	this.determineNextPlayerDirection();
     	final Point playerNewPoint = Game.move(this.mPlayer.getLast(), this.mDirectionPlayer);
-    	this.mPlayer.add(playerNewPoint);
     	
     	this.determineNextOpponentDirection();
     	final Point opponentNewPoint = Game.move(this.mOpponent.getLast(), this.mDirectionOpponent);
-    	this.mOpponent.add(opponentNewPoint);
     	
     	if (this.isCollision(playerNewPoint) || this.isCollision(opponentNewPoint)) {
     		this.newGame();
     	}
+    	
+    	this.mPlayer.add(playerNewPoint);
+    	this.mOpponent.add(opponentNewPoint);
     }
     
     /**
@@ -583,13 +598,13 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     private boolean isCollision(final Point testPoint) {
     	//Test opponent first
     	for (final Point point : this.mOpponent) {
-    		if (Game.pointEquals(point, testPoint)) {
+    		if (Game.pointEquals(point, testPoint) && !Game.pointEquals(point, this.mPlayersStartingPoint)) {
     			return true;
     		}
     	}
     	//Test player
     	for (final Point point : this.mPlayer) {
-    		if (Game.pointEquals(point, testPoint)) {
+    		if (Game.pointEquals(point, testPoint) && !Game.pointEquals(point, this.mPlayersStartingPoint)) {
     			return true;
     		}
     	}
@@ -763,30 +778,13 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      * @param c Canvas to draw on.
      */
     private void drawGameBoard(final Canvas c) {
-    	//XXX: temp draw invalid areas
-    	for (int x = 0; x < this.mCellsWide; x++) {
-    		for (int y = 0; y < this.mCellsTall; y++) {
-    			if (!this.isValidPosition(new Point(x, y))) {
-    				//c.drawRect(x + 0.25f, y + 0.25f, x + 0.75f, y + 0.75f, this.mWallsForeground);
-    			}
-    		}
-    	}
-    	
     	//draw light cycle
     	for (final Point position : this.mPlayer) {
-    		final float left = position.x;
-    		final float top = position.y;
-    		final float right = left + 1;
-    		final float bottom = top + 1;
-    		c.drawRect(left, top, right, bottom, this.mPlayerForeground);
+    		c.drawRect(position.x, position.y, position.x + 1, position.y + 1, this.mPlayerForeground);
     	}
     	//draw opponent
     	for (final Point position : this.mOpponent) {
-    		final float left = position.x;
-    		final float top = position.y;
-    		final float right = left + 1;
-    		final float bottom = top + 1;
-    		c.drawRect(left, top, right, bottom, this.mOpponentForeground);
+    		c.drawRect(position.x, position.y, position.x + 1, position.y + 1, this.mOpponentForeground);
     	}
     	
         //draw walls if enabled
