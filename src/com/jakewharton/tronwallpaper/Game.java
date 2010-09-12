@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import com.jakewharton.tronwallpaper.R;
 import com.jakewharton.utilities.WidgetLocationsPreference;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -194,9 +195,9 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     private boolean mIsDisplayingWalls;
     
     /**
-     * Current cycle positions
+     * Player cycle positions
      */
-    private final LinkedList<Point> mLightCycle;
+    private final LinkedList<Point> mPlayer;
     
     /**
      * Opponent cycle positions
@@ -204,9 +205,14 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     private final LinkedList<Point> mOpponent;
     
     /**
-     * Current snake direction.
+     * Player cycle direction.
      */
-    private Game.Direction mDirection;
+    private Game.Direction mDirectionPlayer;
+    
+    /**
+     * Opponent cycle direction.
+     */
+    private Game.Direction mDirectionOpponent;
     
     /**
      * Direction the user wants us to travel in.
@@ -214,14 +220,14 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     private Game.Direction mWantsToGo;
     
     /**
-     * Opponent color.
+     * Opponent cycle color.
      */
     private final Paint mOpponentForeground;
     
     /**
-     * Light cycle color.
+     * Player cycle color.
      */
-    private final Paint mLightCycleForeground;
+    private final Paint mPlayerForeground;
     
     
     
@@ -239,9 +245,9 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	this.mWallsForeground.setStrokeWidth(2);
         this.mBackgroundPaint = new Paint();
         this.mOpponentForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
-        this.mLightCycleForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.mPlayerForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
         
-        this.mLightCycle = new LinkedList<Point>();
+        this.mPlayer = new LinkedList<Point>();
         this.mOpponent = new LinkedList<Point>();
         
         //Load all preferences or their defaults
@@ -334,12 +340,12 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 			}
 		}
 		
-		final String lightCycle = resources.getString(R.string.settings_color_lightcycle_key);
+		final String lightCycle = resources.getString(R.string.settings_color_player_key);
 		if (all || key.equals(lightCycle)) {
-			this.mLightCycleForeground.setColor(preferences.getInt(lightCycle, resources.getInteger(R.integer.color_lightcycle_default)));
+			this.mPlayerForeground.setColor(preferences.getInt(lightCycle, resources.getInteger(R.integer.color_player_default)));
 			
 			if (Wallpaper.LOG_DEBUG) {
-				Log.d(Game.TAG, "Light Cycle Foreground: #" + Integer.toHexString(this.mLightCycleForeground.getColor()));
+				Log.d(Game.TAG, "Player Foreground: #" + Integer.toHexString(this.mPlayerForeground.getColor()));
 			}
 		}
 		
@@ -522,16 +528,25 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      */
     private void newLife() {
     	//Create player and opponent
-    	this.mLightCycle.clear();
+    	this.mPlayer.clear();
     	this.mOpponent.clear();
     	
-    	//TODO: initialize positions and directions
+    	//Starting position
+    	final Point startingPosition = new Point(this.mCellsWide / 2, ((this.mIconRows / 2) * (this.mCellRowSpacing + 1)));
+    	this.mPlayer.add(startingPosition);
+    	this.mOpponent.add(startingPosition);
     	
+    	//Opposite starting directions
+    	this.mDirectionPlayer = Game.Direction.EAST;
+    	this.mDirectionOpponent = this.mDirectionPlayer.getOpposite();
+    	
+    	//No user direction
     	this.mWantsToGo = null;
     }
     
     /**
-     * Set the user 
+     * Set the user desired direction.
+     * 
      * @param direction
      */
     public void setWantsToGo(final Game.Direction direction) {
@@ -546,13 +561,16 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      * Iterate all entities one step.
      */
     public void tick() {
-    	this.determineNextDirection();
-    	final Point newPoint = Game.move(this.mLightCycle.getFirst(), this.mDirection);
+    	this.determineNextPlayerDirection();
+    	final Point playerNewPoint = Game.move(this.mPlayer.getLast(), this.mDirectionPlayer);
     	
-    	//TODO: move light cycle
-    	//TODO: move opponents
+    	this.determineNextOpponentDirection();
+    	final Point opponentNewPoint = Game.move(this.mOpponent.getLast(), this.mDirectionOpponent);
     	
     	//TODO: collision check
+    	
+    	this.mPlayer.add(playerNewPoint);
+    	this.mOpponent.add(opponentNewPoint);
     }
     
     /**
@@ -573,14 +591,14 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     /**
      * Use line-of-sight to determine next direction of travel.
      */
-    private void determineNextDirection() {
-		final Point lightCycleHead = this.mLightCycle.getFirst();
+    private void determineNextPlayerDirection() {
+		final Point lightCycleHead = this.mPlayer.getFirst();
 		
 		//Try the user direction first
 		final Point newPoint = Game.move(lightCycleHead, this.mWantsToGo);
 		if ((this.mWantsToGo != null) && this.isValidPosition(newPoint) && !this.isPointInOpponent(newPoint)) {
 			//Follow user direction and GTFO
-			this.mDirection = this.mWantsToGo;
+			this.mDirectionPlayer = this.mWantsToGo;
 			return;
 		}
 		
@@ -589,7 +607,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 		
 		//If the wants-to-go direction exists and the AI forced us to change direction then wants-to-go direction
 		//is impossible and should be cleared
-		if ((this.mWantsToGo != null) && (this.mDirection != nextDirection)) {
+		if ((this.mWantsToGo != null) && (this.mDirectionPlayer != nextDirection)) {
 			this.mWantsToGo = null;
 			
 			if (Wallpaper.LOG_DEBUG) {
@@ -597,7 +615,11 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 			}
 		}
 		
-		this.mDirection = nextDirection;
+		//this.mDirectionPlayer = nextDirection;
+    }
+    
+    private void determineNextOpponentDirection() {
+    	
     }
 
     /**
@@ -730,13 +752,22 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      * @param c Canvas to draw on.
      */
     private void drawGameBoard(final Canvas c) {
+    	//XXX: temp draw invalid areas
+    	for (int x = 0; x < this.mCellsWide; x++) {
+    		for (int y = 0; y < this.mCellsTall; y++) {
+    			if (!this.isValidPosition(new Point(x, y))) {
+    				//c.drawRect(x + 0.25f, y + 0.25f, x + 0.75f, y + 0.75f, this.mWallsForeground);
+    			}
+    		}
+    	}
+    	
     	//draw light cycle
-    	for (final Point position : this.mLightCycle) {
+    	for (final Point position : this.mPlayer) {
     		final float left = position.x;
     		final float top = position.y;
     		final float right = left + 1;
     		final float bottom = top + 1;
-    		c.drawRect(left, top, right, bottom, this.mLightCycleForeground);
+    		c.drawRect(left, top, right, bottom, this.mPlayerForeground);
     	}
     	//draw opponent
     	for (final Point position : this.mOpponent) {

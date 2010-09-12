@@ -4,7 +4,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res/com.jakewharton.tronwallpaper"
 	android:title="@string/title"
-	android:key="BreakoutWallpaper_Settings">
+	android:key="TronWallpaper_Settings">
 	
 	<PreferenceCategory
 		android:title="@string/settings_header">
@@ -165,12 +165,12 @@
 			</PreferenceCategory>
 			
 			<PreferenceCategory
-				android:title="@string/settings_color_player_header">
+				android:title="@string/settings_color_players_header">
 				<com.jakewharton.utilities.ColorPreference
-					android:key="@string/settings_color_lightcycle_key"
-					android:title="@string/settings_color_lightcycle"
-					android:summary="@string/settings_color_lightcycle_summary"
-					android:defaultValue="@integer/color_lightcycle_default"/>
+					android:key="@string/settings_color_player_key"
+					android:title="@string/settings_color_player"
+					android:summary="@string/settings_color_player_summary"
+					android:defaultValue="@integer/color_player_default"/>
 				<com.jakewharton.utilities.ColorPreference
 					android:key="@string/settings_color_opponent_key"
 					android:title="@string/settings_color_opponent"

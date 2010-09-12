@@ -17,6 +17,7 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.jakewharton.tronwallpaper.R;
 import com.jakewharton.utilities.WidgetLocationsPreference;
 
 /**
@@ -442,12 +443,10 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
         final Resources resources = this.getResources();
 	    final SharedPreferences.Editor editor = Preferences.this.getPreferenceManager().getSharedPreferences().edit();
 
-		/*//user controllable
+		//user controllable
 		editor.remove(resources.getString(R.string.settings_game_usercontrol_key));
 		//fps
 		editor.remove(resources.getString(R.string.settings_display_fps_key));
-		//blocky
-		editor.remove(resources.getString(R.string.settings_display_isblocky_key));
 		//show walls
 		editor.remove(resources.getString(R.string.settings_display_showwalls_key));
 		//icon rows
@@ -467,7 +466,7 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
 		//padding left
 		editor.remove(resources.getString(R.string.settings_display_padding_left_key));
 		//padding right
-		editor.remove(resources.getString(R.string.settings_display_padding_right_key));*/
+		editor.remove(resources.getString(R.string.settings_display_padding_right_key));
 	
 		editor.commit();
     }
@@ -479,7 +478,7 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
         final Resources resources = this.getResources();
 		final SharedPreferences.Editor editor = Preferences.this.getPreferenceManager().getSharedPreferences().edit();
 
-		/*//background
+		//background
 		editor.remove(resources.getString(R.string.settings_color_background_key));
 		//walls
 		editor.remove(resources.getString(R.string.settings_color_walls_key));
@@ -487,10 +486,10 @@ public class Preferences extends PreferenceActivity implements SharedPreferences
 		editor.remove(resources.getString(R.string.settings_color_bgimage_key));
 		//background opacity
 		editor.remove(resources.getString(R.string.settings_color_bgopacity_key));
-		//snake
-		editor.remove(resources.getString(R.string.settings_color_snake_key));
-		//apple
-		editor.remove(resources.getString(R.string.settings_color_apple_key));*/
+		//player
+		editor.remove(resources.getString(R.string.settings_color_player_key));
+		//opponent
+		editor.remove(resources.getString(R.string.settings_color_opponent_key));
 		
 		editor.commit();
     }

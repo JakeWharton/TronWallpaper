@@ -1,5 +1,6 @@
 package com.jakewharton.tronwallpaper;
 
+import com.jakewharton.tronwallpaper.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

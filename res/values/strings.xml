@@ -111,10 +111,10 @@
     <string name="settings_color_bgimageclear_key">color_game_bgimage_clear</string>
     <string name="settings_color_bgimageclear_toast">Background image cleared.</string>
     <string name="settings_color_bgimageclear_summary"></string>
-    <string name="settings_color_player_header">Players</string>
-    <string name="settings_color_lightcycle">Light Cycle</string>
-    <string name="settings_color_lightcycle_key">color_lightcycle</string>
-    <string name="settings_color_lightcycle_summary"></string>
+    <string name="settings_color_players_header">Players</string>
+    <string name="settings_color_player">Player</string>
+    <string name="settings_color_player_key">color_player</string>
+    <string name="settings_color_player_summary"></string>
     <string name="settings_color_opponent">Opponent</string>
     <string name="settings_color_opponent_key">color_opponent</string>
     <string name="settings_color_opponent_summary"></string>

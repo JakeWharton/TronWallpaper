@@ -50,6 +50,6 @@
 	<integer name="color_bgopacity_default">0xff</integer>
 	<integer name="color_bgopacity_min">0x00</integer>
 	<integer name="color_bgopacity_max">0xff</integer>
-	<integer name="color_lightcycle_default">0xffecece2</integer>
+	<integer name="color_player_default">0xffecece2</integer>
 	<integer name="color_opponent_default">0xffecece2</integer>
 </resources>
