@@ -23,25 +23,11 @@
 				android:defaultValue="@integer/game_mode_default"
 				android:entries="@array/game_mode"
 				android:entryValues="@array/game_mode_values"/>
-			<com.jakewharton.utilities.NumberPreference
-				android:key="@string/settings_game_endlessregen_key"
-				android:title="@string/settings_game_endlessregen"
-				android:summary="@string/settings_game_endlessregen_summary"
-				android:defaultValue="@integer/game_endlessregen_default"
-				app:min="@integer/game_endlessregen_min"
-				app:max="@integer/game_endlessregen_max"/>
 			<CheckBoxPreference
 				android:key="@string/settings_game_usercontrol_key"
 				android:title="@string/settings_game_usercontrol"
 				android:summary="@string/settings_game_usercontrol_summary"
 				android:defaultValue="@bool/game_usercontrol_default"/>
-			<com.jakewharton.utilities.NumberPreference
-				android:key="@string/settings_game_ballcount_key"
-				android:title="@string/settings_game_ballcount"
-				android:summary="@string/settings_game_ballcount_summary"
-				android:defaultValue="@integer/game_ballcount_default"
-				app:min="@integer/game_ballcount_min"
-				app:max="@integer/game_ballcount_max"/>
 			
 			<PreferenceCategory
 				android:key="@string/settings_reset_key"
@@ -179,49 +165,17 @@
 			</PreferenceCategory>
 			
 			<PreferenceCategory
-				android:title="@string/settings_color_ball_header">
+				android:title="@string/settings_color_player_header">
 				<com.jakewharton.utilities.ColorPreference
-					android:key="@string/settings_color_ball_key"
-					android:title="@string/settings_color_ball"
-					android:summary="@string/settings_color_ball_summary"
-					android:defaultValue="@integer/color_ball_default"/>
-			</PreferenceCategory>
-			
-			<PreferenceCategory
-				android:title="@string/settings_color_blocks_header">
+					android:key="@string/settings_color_lightcycle_key"
+					android:title="@string/settings_color_lightcycle"
+					android:summary="@string/settings_color_lightcycle_summary"
+					android:defaultValue="@integer/color_lightcycle_default"/>
 				<com.jakewharton.utilities.ColorPreference
-					android:key="@string/settings_color_block1_key"
-					android:title="@string/settings_color_block1"
-					android:summary="@string/settings_color_block1_summary"
-					android:defaultValue="@integer/color_block1_default"/>
-				<com.jakewharton.utilities.ColorPreference
-					android:key="@string/settings_color_block2_key"
-					android:title="@string/settings_color_block2"
-					android:summary="@string/settings_color_block2_summary"
-					android:defaultValue="@integer/color_block2_default"/>
-				<com.jakewharton.utilities.ColorPreference
-					android:key="@string/settings_color_block3_key"
-					android:title="@string/settings_color_block3"
-					android:summary="@string/settings_color_block3_summary"
-					android:defaultValue="@integer/color_block3_default"/>
-			</PreferenceCategory>
-			
-			<PreferenceCategory
-				android:title="@string/settings_color_style_header">
-				<com.jakewharton.utilities.IntegerListPreference
-					android:key="@string/settings_color_blockstyle_key"
-					android:title="@string/settings_color_blockstyle"
-					android:summary="@string/settings_color_blockstyle_summary"
-					android:defaultValue="@integer/color_blockstyle_default"
-					android:entries="@array/color_style"
-					android:entryValues="@array/color_style_values"/>
-				<com.jakewharton.utilities.IntegerListPreference
-					android:key="@string/settings_color_ballstyle_key"
-					android:title="@string/settings_color_ballstyle"
-					android:summary="@string/settings_color_ballstyle_summary"
-					android:defaultValue="@integer/color_ballstyle_default"
-					android:entries="@array/color_style"
-					android:entryValues="@array/color_style_values"/>
+					android:key="@string/settings_color_opponent_key"
+					android:title="@string/settings_color_opponent"
+					android:summary="@string/settings_color_opponent_summary"
+					android:defaultValue="@integer/color_opponent_default"/>
 			</PreferenceCategory>
 			
 			<PreferenceCategory

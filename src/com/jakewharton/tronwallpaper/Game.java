@@ -13,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -335,21 +334,21 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 			}
 		}
 		
-		final String snake = resources.getString(R.string.settings_color_snake_key);
-		if (all || key.equals(snake)) {
-			this.mLightCycleForeground.setColor(preferences.getInt(snake, resources.getInteger(R.integer.color_snake_default)));
+		final String lightCycle = resources.getString(R.string.settings_color_lightcycle_key);
+		if (all || key.equals(lightCycle)) {
+			this.mLightCycleForeground.setColor(preferences.getInt(lightCycle, resources.getInteger(R.integer.color_lightcycle_default)));
 			
 			if (Wallpaper.LOG_DEBUG) {
-				Log.d(Game.TAG, "Snake Foreground: #" + Integer.toHexString(this.mLightCycleForeground.getColor()));
+				Log.d(Game.TAG, "Light Cycle Foreground: #" + Integer.toHexString(this.mLightCycleForeground.getColor()));
 			}
 		}
 		
-		final String apple = resources.getString(R.string.settings_color_apple_key);
-		if (all || key.equals(apple)) {
-			this.mOpponentForeground.setColor(preferences.getInt(apple, resources.getInteger(R.integer.color_apple_default)));
+		final String opponent = resources.getString(R.string.settings_color_opponent_key);
+		if (all || key.equals(opponent)) {
+			this.mOpponentForeground.setColor(preferences.getInt(opponent, resources.getInteger(R.integer.color_opponent_default)));
 			
 			if (Wallpaper.LOG_DEBUG) {
-				Log.d(Game.TAG, "Apple Foreground: #" + Integer.toHexString(this.mOpponentForeground.getColor()));
+				Log.d(Game.TAG, "Opponent Foreground: #" + Integer.toHexString(this.mOpponentForeground.getColor()));
 			}
 		}
     	
@@ -551,26 +550,42 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	final Point newPoint = Game.move(this.mLightCycle.getFirst(), this.mDirection);
     	
     	//TODO: move light cycle
-    	//TODO: move opponent
+    	//TODO: move opponents
     	
     	//TODO: collision check
+    }
+    
+    /**
+     * Test if a point is in the opponent light cycle.
+     * 
+     * @param testPoint Point to test.
+     * @return Whether or not the point is in the opponent.
+     */
+    private boolean isPointInOpponent(final Point testPoint) {
+    	for (final Point point : this.mOpponent) {
+    		if (Game.pointEquals(point, testPoint)) {
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     /**
      * Use line-of-sight to determine next direction of travel.
      */
     private void determineNextDirection() {
-		final Point snakeHead = this.mLightCycle.getFirst();
+		final Point lightCycleHead = this.mLightCycle.getFirst();
 		
 		//Try the user direction first
-		final Point newPoint = Game.move(snakeHead, this.mWantsToGo);
-		if ((this.mWantsToGo != null) && this.isValidPosition(newPoint) && !this.isPointInSnake(newPoint)) {
+		final Point newPoint = Game.move(lightCycleHead, this.mWantsToGo);
+		if ((this.mWantsToGo != null) && this.isValidPosition(newPoint) && !this.isPointInOpponent(newPoint)) {
 			//Follow user direction and GTFO
 			this.mDirection = this.mWantsToGo;
 			return;
 		}
 		
-		//TODO: this
+		Game.Direction nextDirection = null;
+		//TODO: determine nextDirection
 		
 		//If the wants-to-go direction exists and the AI forced us to change direction then wants-to-go direction
 		//is impossible and should be cleared
@@ -734,23 +749,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	
         //draw walls if enabled
         if (this.mIsDisplayingWalls) {
-        	for (int y = 0; y < this.mIconRows; y++) {
-        		for (int x = 0; x < this.mIconCols; x++) {
-        			float left = (x * (this.mCellColumnSpacing + 1)) + 1;
-        			float top = (y * (this.mCellRowSpacing + 1)) + 1;
-        			float right = left + this.mCellColumnSpacing;
-        			float bottom = top + this.mCellRowSpacing;
-        			
-        			c.drawRect(left, top, right, bottom, this.mWallsForeground);
-        			
-        			left += Game.CELL_OVER_EIGHT;
-        			top += Game.CELL_OVER_EIGHT;
-        			right -= Game.CELL_OVER_EIGHT;
-        			bottom -= Game.CELL_OVER_EIGHT;
-        			
-        			c.drawRect(left, top, right, bottom, this.mWallsForeground);
-        		}
-        	}
+        	//TODO: draw walls
         }
     }
 

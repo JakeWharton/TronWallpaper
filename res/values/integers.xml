@@ -7,14 +7,6 @@
     
     <integer name="game_mode_default">0</integer>
     
-    <integer name="game_endlessregen_default">45</integer>
-    <integer name="game_endlessregen_min">30</integer>
-    <integer name="game_endlessregen_max">70</integer>
-    
-    <integer name="game_ballcount_default">4</integer>
-    <integer name="game_ballcount_min">1</integer>
-    <integer name="game_ballcount_max">4</integer>
-    
     
 	<integer name="display_fps_default">20</integer>
 	<integer name="display_fps_min">10</integer>
@@ -54,13 +46,10 @@
 	
 	
 	<integer name="color_background_default">0xff3d3d3d</integer>
+	<integer name="color_walls_default">0xff6161a1</integer>
 	<integer name="color_bgopacity_default">0xff</integer>
 	<integer name="color_bgopacity_min">0x00</integer>
 	<integer name="color_bgopacity_max">0xff</integer>
-	<integer name="color_ball_default">0xffecece2</integer>
-	<integer name="color_block1_default">0xffb55757</integer>
-	<integer name="color_block2_default">0xff76b865</integer>
-	<integer name="color_block3_default">0xff6a7bd4</integer>
-	<integer name="color_blockstyle_default">0</integer>
-	<integer name="color_ballstyle_default">0</integer>
+	<integer name="color_lightcycle_default">0xffecece2</integer>
+	<integer name="color_opponent_default">0xffecece2</integer>
 </resources>

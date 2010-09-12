@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="title">Breakout Wallpaper</string>
+    <string name="title">Tron Wallpaper</string>
     <string name="author">Jake Wharton</string>
-    <string name="description">Play the brick-busting game of breakout around your icons.</string>
-    <string name="version_name">1.0.1</string>
+    <string name="description">Race light cycles around your icons against Master Control.</string>
+    <string name="version_name">1.0.0</string>
     <string name="version_code_key">version</string>
     
     <string name="welcome_firstrun">Thanks for installing!\n\nWould you like to read the instructions?</string>
     <string name="welcome_upgrade">Thanks for upgrading!\n\nWould you like to read the change log?</string>
-    <string name="welcome_picker_toast">Choose \"Breakout Wallpaper\" from the list.</string>
+    <string name="welcome_picker_toast">Choose \"Tron Wallpaper\" from the list.</string>
     
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -44,16 +44,10 @@
     
     <string name="settings_game_mode">Play Mode</string>
     <string name="settings_game_mode_key">game_mode</string>
-    <string name="settings_game_mode_summary">Endless or levels</string>
-    <string name="settings_game_endlessregen">Endless Regen Percent</string>
-    <string name="settings_game_endlessregen_key">game_endlessregen</string>
-    <string name="settings_game_endlessregen_summary">Percentage of blocks remaining at which to begin regen</string>
+    <string name="settings_game_mode_summary">Versus or Endless</string>
     <string name="settings_game_usercontrol">User Control</string>
     <string name="settings_game_usercontrol_key">game_usercontrol</string>
-    <string name="settings_game_usercontrol_summary">Allow touches on the screen to influence ball direction</string>
-    <string name="settings_game_ballcount">Ball Count</string>
-    <string name="settings_game_ballcount_key">game_ballcount</string>
-    <string name="settings_game_ballcount_summary">Number of balls in the game!</string>
+    <string name="settings_game_usercontrol_summary">Allow touches on the screen to influence light cycle direction</string>
     <string name="settings_game_reset">Reset Game Settings</string>
     <string name="settings_game_reset_key">game_reset</string>
     <string name="settings_game_reset_summary">All game settings back to default</string>
@@ -62,6 +56,9 @@
     <string name="settings_display_fps_key">display_fps</string>
     <string name="settings_display_fps_summary">Number of times per second to advance the game</string>
     <string name="settings_display_layout">Layout</string>
+    <string name="settings_display_showwalls">Show Walls</string>
+    <string name="settings_display_showwalls_key">display_showwalls</string>
+    <string name="settings_display_showwalls_summary">Draw walls around the icons</string>
     <string name="settings_display_iconrows">Icon Rows</string>
     <string name="settings_display_iconrows_key">display_iconrows</string>
     <string name="settings_display_iconrows_summary">Number of icon rows on your home screen</string>
@@ -100,6 +97,9 @@
     <string name="settings_color_background">Background Color</string>
     <string name="settings_color_background_key">color_game_background</string>
     <string name="settings_color_background_summary"></string>
+    <string name="settings_color_walls">Wall Color</string>
+    <string name="settings_color_walls_key">color_game_walls</string>
+    <string name="settings_color_walls_summary"></string>
     <string name="settings_color_bgimage">Background Image</string>
     <string name="settings_color_bgimage_key">color_game_bgimage</string>
     <string name="settings_color_bgimage_toast">Background image successfully set.</string>
@@ -111,27 +111,13 @@
     <string name="settings_color_bgimageclear_key">color_game_bgimage_clear</string>
     <string name="settings_color_bgimageclear_toast">Background image cleared.</string>
     <string name="settings_color_bgimageclear_summary"></string>
-    <string name="settings_color_ball_header">Ball</string>
-    <string name="settings_color_ball">Ball Color</string>
-    <string name="settings_color_ball_key">color_ball</string>
-    <string name="settings_color_ball_summary">Color of game balls</string>
-    <string name="settings_color_blocks_header">Blocks</string>
-    <string name="settings_color_block1">Block 1 Color</string>
-    <string name="settings_color_block1_key">color_block1</string>
-    <string name="settings_color_block1_summary">First color of blocks</string>
-    <string name="settings_color_block2">Block 2 Color</string>
-    <string name="settings_color_block2_key">color_block2</string>
-    <string name="settings_color_block2_summary">Second color of blocks</string>
-    <string name="settings_color_block3">Block 3 Color</string>
-    <string name="settings_color_block3_key">color_block3</string>
-    <string name="settings_color_block3_summary">Third color of blocks</string>
-    <string name="settings_color_style_header">Drawing Style</string>
-    <string name="settings_color_blockstyle">Block Drawing Style</string>
-    <string name="settings_color_blockstyle_key">color_blockstyle</string>
-    <string name="settings_color_blockstyle_summary">Fill or stroke</string>
-    <string name="settings_color_ballstyle">Ball Drawing Style</string>
-    <string name="settings_color_ballstyle_key">color_ballstyle</string>
-    <string name="settings_color_ballstyle_summary">Fill or stroke</string>
+    <string name="settings_color_player_header">Players</string>
+    <string name="settings_color_lightcycle">Light Cycle</string>
+    <string name="settings_color_lightcycle_key">color_lightcycle</string>
+    <string name="settings_color_lightcycle_summary"></string>
+    <string name="settings_color_opponent">Opponent</string>
+    <string name="settings_color_opponent_key">color_opponent</string>
+    <string name="settings_color_opponent_summary"></string>
     <string name="settings_color_reset">Reset Color Settings</string>
     <string name="settings_color_reset_key">color_reset</string>
     <string name="settings_color_reset_summary">All color settings back to default</string>
@@ -140,29 +126,29 @@
     <string name="about_key">about</string>
     <string name="about_summary">Instructions, change log, credits...</string>
     <string name="about_header_key">about_header</string>
-    <string name="about_header_summary">An Android live wallpaper which plays the brick-busting game of breakout around your icons.</string>
+    <string name="about_header_summary">An Android live wallpaper which races light cycles around your icons against Master Control.</string>
     <string name="about_contents">Contents</string>
     <string name="instructions">Instructions</string>
     <string name="instructions_key">instructions</string>
-    <string name="instructions_title">Breakout Wallpaper Instructions</string>
+    <string name="instructions_title">Tron Wallpaper Instructions</string>
     <string name="instructions_summary">Simple overview of usage</string>
     <string name="changelog">Change Log</string>
     <string name="changelog_key">changelog</string>
-    <string name="changelog_title">Breakout Wallpaper Change Log</string>
+    <string name="changelog_title">Tron Wallpaper Change Log</string>
     <string name="changelog_summary">Summary of differences between versions</string>
     <string name="credits">Credits</string>
     <string name="credits_key">credits</string>
-    <string name="credits_title">Breakout Wallpaper Credits</string>
+    <string name="credits_title">Tron Wallpaper Credits</string>
     <string name="credits_summary">Additional attribution</string>
     <string name="todo">To Do / Requests</string>
     <string name="todo_key">todo</string>
-    <string name="todo_title"> Breakout Wallpaper To Do and Requests</string>
+    <string name="todo_title"> Tron Wallpaper To Do and Requests</string>
     <string name="todo_summary">List of features pending implementation</string>
     
     <string name="about_aroundtheweb_header">Around The Web</string>
     <string name="github">GitHub Project</string>
     <string name="github_key">github</string>
-    <string name="github_href">http://github.com/JakeWharton/BreakoutWallpaper/</string>
+    <string name="github_href">http://github.com/JakeWharton/TronWallpaper/</string>
     <string name="github_summary">We are open source! Fork and contribute code.</string>
     <string name="xda">XDA Developers</string>
     <string name="xda_key">xda</string>
