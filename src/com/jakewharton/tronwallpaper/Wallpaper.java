@@ -139,11 +139,6 @@ public class Wallpaper extends WallpaperService {
         private boolean mIsVisible;
         
         /**
-         * Whether or not the device is in landscape mode.
-         */
-        private boolean mIsLandscape;
-        
-        /**
          * The number of FPS the user wants us to render.
          */
         private int mFPS;
@@ -281,15 +276,15 @@ public class Wallpaper extends WallpaperService {
 	        		
 	        		if (Math.abs(deltaX) > Math.abs(deltaY)) {
 	        			if (deltaX > 0) {
-	        				this.mGame.setWantsToGo(this.mIsLandscape ? Game.Direction.NORTH : Game.Direction.WEST);
+	        				this.mGame.setWantsToGo(Game.Direction.WEST);
 	        			} else {
-	        				this.mGame.setWantsToGo(this.mIsLandscape ? Game.Direction.SOUTH : Game.Direction.EAST);
+	        				this.mGame.setWantsToGo(Game.Direction.EAST);
 	        			}
 	        		} else {
 	        			if (deltaY > 0) {
-	        				this.mGame.setWantsToGo(this.mIsLandscape ? Game.Direction.EAST : Game.Direction.NORTH);
+	        				this.mGame.setWantsToGo(Game.Direction.NORTH);
 	        			} else {
-	        				this.mGame.setWantsToGo(this.mIsLandscape ? Game.Direction.WEST : Game.Direction.SOUTH);
+	        				this.mGame.setWantsToGo(Game.Direction.SOUTH);
 	        			}
 	        		}
         		}
@@ -308,8 +303,6 @@ public class Wallpaper extends WallpaperService {
         	}
         	
             super.onSurfaceChanged(holder, format, width, height);
-            
-            this.mIsLandscape = (width > height);
             
             this.mScreenCenterX = width / 2.0f;
             this.mScreenCenterY = height / 2.0f;
