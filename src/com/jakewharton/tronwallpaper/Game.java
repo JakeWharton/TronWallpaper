@@ -1,6 +1,5 @@
 package com.jakewharton.tronwallpaper;
 
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -729,20 +728,10 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 				
 	    		final Bitmap scaled = Bitmap.createScaledBitmap(temp, newWidth, newHeight, false);
 	    		this.mBackground = Bitmap.createBitmap(scaled, x, y, screenWidth, screenHeight);
-			} catch (FileNotFoundException e) {
-				Toast.makeText(Wallpaper.CONTEXT, "Unable to load background bitmap. File not found.", Toast.LENGTH_LONG);
+			} catch (final Exception e) {
 				e.printStackTrace();
-				Log.w(Game.TAG, "Unable to load background bitmap. File not found.");
-				this.mBackground = null;
-			} catch (OutOfMemoryError e) {
-				Toast.makeText(Wallpaper.CONTEXT, "Unable to load background bitmap. Not enough memory.", Toast.LENGTH_LONG);
-				e.printStackTrace();
-				Log.w(Game.TAG, "Unable to load background bitmap. Not enough memory.");
-				this.mBackground = null;
-			} catch (NullPointerException e) {
-				Toast.makeText(Wallpaper.CONTEXT, "Unable to load background bitmap.", Toast.LENGTH_LONG);
-				e.printStackTrace();
-				Log.w(Game.TAG, "Unable to load background bitmap. Null pointer exception.");
+				Log.w(Game.TAG, "Unable to load background bitmap.");
+				Toast.makeText(Wallpaper.CONTEXT, "Unable to load background bitmap.", Toast.LENGTH_SHORT).show();
 				this.mBackground = null;
 			}
     	}
