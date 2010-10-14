@@ -14,13 +14,9 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     
-    <string name="gameover">GAME OVER</string>
-    
     <string name="display_widgetlocations_default"/>
     <string name="widgetlocations_howto">Draw rectangles to indicate widget positions. Long press to delete.</string>
     
-    <string name="reset_game">Are you sure you want to reset all game-related settings?</string>
-    <string name="reset_game_toast">All game-related settings reset.</string>
     <string name="reset_display">Are you sure you want to reset all display-related settings?</string>
     <string name="reset_display_toast">All display-related settings reset.</string>
     <string name="reset_color">Are you sure you want to reset all color-related settings?</string>
@@ -143,7 +139,7 @@
     <string name="github_summary">We are open source! Fork and contribute code.</string>
     <string name="xda">XDA Developers</string>
     <string name="xda_key">xda</string>
-    <string name="xda_href">http://forum.xda-developers.com/showthread.php?p=7979986</string>
+    <string name="xda_href">http://forum.xda-developers.com/showthread.php?p=###</string>
     <string name="xda_summary">Official thread of development information</string>
     
     <string name="information_header">Information</string>
