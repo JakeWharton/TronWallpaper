@@ -9,43 +9,16 @@
 	<PreferenceCategory
 		android:title="@string/settings_header">
 		
-		
-		
-		<!-- GAME -->
+		<!-- DISPLAY AND GAME -->
 		<PreferenceScreen
-			android:key="@string/settings_game_key"
-			android:title="@string/settings_game"
-			android:summary="@string/settings_game_summary">
-			<com.jakewharton.utilities.IntegerListPreference
-				android:key="@string/settings_game_mode_key"
-				android:title="@string/settings_game_mode"
-				android:summary="@string/settings_game_mode_summary"
-				android:defaultValue="@integer/game_mode_default"
-				android:entries="@array/game_mode"
-				android:entryValues="@array/game_mode_values"/>
+			android:key="@string/settings_display_key"
+			android:title="@string/settings_display"
+			android:summary="@string/settings_display_summary">
 			<CheckBoxPreference
 				android:key="@string/settings_game_usercontrol_key"
 				android:title="@string/settings_game_usercontrol"
 				android:summary="@string/settings_game_usercontrol_summary"
 				android:defaultValue="@bool/game_usercontrol_default"/>
-			
-			<PreferenceCategory
-				android:key="@string/settings_reset_key"
-				android:title="@string/settings_reset">
-				<Preference
-					android:key="@string/settings_game_reset_key"
-					android:title="@string/settings_game_reset"
-					android:summary="@string/settings_game_reset_summary"/>
-			</PreferenceCategory>
-		</PreferenceScreen>
-		
-		
-		
-		<!-- DISPLAY -->
-		<PreferenceScreen
-			android:key="@string/settings_display_key"
-			android:title="@string/settings_display"
-			android:summary="@string/settings_display_summary">
 			<com.jakewharton.utilities.NumberPreference
 				android:key="@string/settings_display_fps_key"
 				android:title="@string/settings_display_fps"
@@ -53,6 +26,11 @@
 				android:defaultValue="@integer/display_fps_default"
 				app:min="@integer/display_fps_min"
 				app:max="@integer/display_fps_max"/>
+			<CheckBoxPreference
+				android:key="@string/settings_display_showwalls_key"
+				android:title="@string/settings_display_showwalls"
+				android:summary="@string/settings_display_showwalls_summary"
+				android:defaultValue="@bool/display_showwalls_default"/>
 			<PreferenceCategory
 				android:title="@string/settings_display_layout">
 				<com.jakewharton.utilities.NumberPreference

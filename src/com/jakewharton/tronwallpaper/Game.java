@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
@@ -238,6 +239,11 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
      */
     private final Paint mPlayerForeground;
     
+    /**
+     * Precalculated wall rectangles for drawing
+     */
+    private final List<RectF> mWalls;
+    
     
     
     /**
@@ -250,13 +256,14 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 
         //Create Paints
     	this.mWallsForeground = new Paint(Paint.ANTI_ALIAS_FLAG);
-    	this.mWallsForeground.setStyle(Paint.Style.FILL);
+    	this.mWallsForeground.setStyle(Paint.Style.STROKE);
         this.mBackgroundPaint = new Paint();
         this.mOpponentForeground = new Paint();
         this.mPlayerForeground = new Paint();
         
         this.mPlayer = new LinkedList<Point>();
         this.mOpponent = new LinkedList<Point>();
+        this.mWalls = new LinkedList<RectF>();
         
         //Load all preferences or their defaults
         Wallpaper.PREFERENCES.registerOnSharedPreferenceChangeListener(this);
@@ -748,6 +755,42 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     		this.mScaleY = (screenHeight - (this.mDotGridPaddingTop + this.mDotGridPaddingBottom)) / (this.mCellsTall * 1.0f);
     	}
     	
+    	//Calculate walls
+    	this.mWalls.clear();
+		
+    	//Widget walls
+    	for (final Rect widget : this.mWidgetLocations) {
+			final float left = (widget.left * (this.mCellColumnSpacing + Game.CELLS_BETWEEN_COLUMN)) + Game.CELLS_BETWEEN_COLUMN;
+			final float top = (widget.top * (this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW)) + Game.CELLS_BETWEEN_ROW;
+    		final float right = ((widget.right * (this.mCellColumnSpacing + Game.CELLS_BETWEEN_COLUMN)) + this.mCellColumnSpacing + Game.CELLS_BETWEEN_COLUMN);
+    		final float bottom = ((widget.bottom * (this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW)) + this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW);
+			
+			this.mWalls.add(new RectF(left, top, right, bottom));
+    	}
+		
+    	//Icon walls
+    	for (int y = 0; y < this.mIconRows; y++) {
+    		for (int x = 0; x < this.mIconCols; x++) {
+    			boolean contained = false;
+    			for (final Rect widget : this.mWidgetLocations) {
+    				if (x >= widget.left && x <= widget.right && y >= widget.top && y <= widget.bottom) {
+    					contained = true;
+    					break;
+    				}
+    			}
+    			if (contained) {
+    				continue;
+    			}
+    			
+    			final float left = (x * (this.mCellColumnSpacing + Game.CELLS_BETWEEN_COLUMN)) + Game.CELLS_BETWEEN_COLUMN;
+    			final float top = (y * (this.mCellRowSpacing + Game.CELLS_BETWEEN_ROW)) + Game.CELLS_BETWEEN_ROW;
+    			final float right = left + this.mCellColumnSpacing;
+    			final float bottom = top + this.mCellRowSpacing;
+
+    			this.mWalls.add(new RectF(left, top, right, bottom));
+    		}
+    	}
+    	
     	if (Wallpaper.LOG_DEBUG) {
     		Log.d(Game.TAG, "Is Landscape: " + this.mIsLandscape);
     		Log.d(Game.TAG, "Screen Width: " + screenWidth);
@@ -802,7 +845,9 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	
         //draw walls if enabled
         if (this.mIsDisplayingWalls) {
-        	//TODO: draw walls
+        	for (final RectF wall : this.mWalls) {
+        		c.drawRect(wall, this.mWallsForeground);
+        	}
         }
     }
 

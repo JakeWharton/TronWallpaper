@@ -30,10 +30,7 @@
     
     <string name="settings_key">settings</string>
     <string name="settings_header">Settings</string>
-    <string name="settings_game">Game</string>
-    <string name="settings_game_key">game</string>
-    <string name="settings_game_summary">Play mode, ball count...</string>
-    <string name="settings_display">Display</string>
+    <string name="settings_display">Display and Game</string>
     <string name="settings_display_key">display</string>
     <string name="settings_display_summary">Layout, offsets, FPS...</string>
     <string name="settings_color">Colors and Background</string>
@@ -42,15 +39,9 @@
     <string name="settings_reset">Reset</string>
     <string name="settings_reset_key">reset</string>
     
-    <string name="settings_game_mode">Play Mode</string>
-    <string name="settings_game_mode_key">game_mode</string>
-    <string name="settings_game_mode_summary">Versus or Endless</string>
     <string name="settings_game_usercontrol">User Control</string>
     <string name="settings_game_usercontrol_key">game_usercontrol</string>
     <string name="settings_game_usercontrol_summary">Allow touches on the screen to influence light cycle direction</string>
-    <string name="settings_game_reset">Reset Game Settings</string>
-    <string name="settings_game_reset_key">game_reset</string>
-    <string name="settings_game_reset_summary">All game settings back to default</string>
     
     <string name="settings_display_fps">FPS</string>
     <string name="settings_display_fps_key">display_fps</string>
