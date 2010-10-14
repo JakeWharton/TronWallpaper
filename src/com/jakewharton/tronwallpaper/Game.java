@@ -520,10 +520,10 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     			Log.d(Game.TAG, "Widget: L=" + widget.left + ", T=" + widget.top + ", R=" + widget.right + ", B=" + widget.bottom);
     		}
     		
-    		final int left = (widget.left * iconCellsWidth) + 1;
-    		final int top = (widget.top * iconCellsHeight) + 1;
-    		final int right = (widget.right * iconCellsWidth) + this.mCellColumnSpacing;
-    		final int bottom = (widget.bottom * iconCellsHeight) + this.mCellRowSpacing;
+    		final int left = (widget.left * iconCellsWidth) + Game.CELLS_BETWEEN_COLUMN;
+    		final int top = (widget.top * iconCellsHeight) + Game.CELLS_BETWEEN_ROW;
+    		final int right = (widget.right * iconCellsWidth) + iconCellsWidth - 1;
+    		final int bottom = (widget.bottom * iconCellsHeight) + iconCellsHeight - 1;
     		for (int y = top; y <= bottom; y++) {
     			for (int x = left; x <= right; x++) {
     				this.mBoard[y][x] = Game.CELL_WALL;
