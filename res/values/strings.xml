@@ -113,7 +113,7 @@
     <string name="about_key">about</string>
     <string name="about_summary">Instructions, change log, credits...</string>
     <string name="about_header_key">about_header</string>
-    <string name="about_header_summary">An Android live wallpaper which races light cycles around your icons against Master Control.</string>
+    <string name="about_header_summary">Live wallpaper which races a light cycle against Master Control around your icons.</string>
     <string name="about_contents">Contents</string>
     <string name="instructions">Instructions</string>
     <string name="instructions_key">instructions</string>
