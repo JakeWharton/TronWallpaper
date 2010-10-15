@@ -87,6 +87,11 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 	 */
 	private static final int CELLS_BETWEEN_COLUMN = 3;
 	
+	/**
+	 * If a random number [0, RANDOM_TURN_MULTIPLIER) is 0 then randomly turn the light cycle.
+	 */
+	private static final int RANDOM_TURN_MULTIPLIER = 250;
+	
 
 	
 	/**
@@ -648,7 +653,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	//TODO: real AI
 		Game.Direction nextDirection = null;
     	//favor current direction most of the time
-    	if (!this.isCollision(Game.move(head, this.mDirectionPlayer)) && (Game.RANDOM.nextInt(250) != 0)) {
+    	if (!this.isCollision(Game.move(head, this.mDirectionPlayer)) && (Game.RANDOM.nextInt(Game.RANDOM_TURN_MULTIPLIER) != 0)) {
     		nextDirection = this.mDirectionPlayer;
     	} else {
 	    	final List<Game.Direction> directions = new LinkedList<Game.Direction>();
@@ -684,7 +689,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     	//TODO: real AI
     	final Point position = this.mOpponent.getLast();
     	//favor current direction most of the time
-    	if (!this.isCollision(Game.move(position, this.mDirectionOpponent)) && (Game.RANDOM.nextInt(250) != 0)) {
+    	if (!this.isCollision(Game.move(position, this.mDirectionOpponent)) && (Game.RANDOM.nextInt(Game.RANDOM_TURN_MULTIPLIER) != 0)) {
     		return;
     	}
     	final List<Game.Direction> directions = new LinkedList<Game.Direction>();
