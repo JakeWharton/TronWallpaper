@@ -632,7 +632,7 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
     }
     
     /**
-     * Use line-of-sight to determine next direction of travel.
+     * Try to go straight, otherwise make a valid turn and, on occasion, randomize!
      */
     private void determineNextPlayerDirection() {
 		final Point head = this.mPlayer.getLast();
@@ -677,6 +677,9 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 		this.mDirectionPlayer = nextDirection;
     }
     
+    /**
+     * Try to go straight, otherwise make a valid turn and, on occasion, randomize!
+     */
     private void determineNextOpponentDirection() {
     	//TODO: real AI
     	final Point position = this.mOpponent.getLast();
