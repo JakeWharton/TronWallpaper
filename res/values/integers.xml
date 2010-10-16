@@ -8,9 +8,9 @@
     <integer name="game_mode_default">0</integer>
     
     
-	<integer name="display_fps_default">20</integer>
-	<integer name="display_fps_min">10</integer>
-	<integer name="display_fps_max">30</integer>
+	<integer name="display_fps_default">25</integer>
+	<integer name="display_fps_min">15</integer>
+	<integer name="display_fps_max">50</integer>
 	
 	<integer name="display_padding_left_default">-5</integer>
 	<integer name="display_padding_left_min">-15</integer>
