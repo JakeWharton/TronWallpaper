@@ -80,12 +80,12 @@ public class Game implements SharedPreferences.OnSharedPreferenceChangeListener 
 	/**
 	 * Block cells between icon rows.
 	 */
-	private static final int CELLS_BETWEEN_ROW = 3;
+	private static final int CELLS_BETWEEN_ROW = 4;
 	
 	/**
 	 * Block cells between icon columns.
 	 */
-	private static final int CELLS_BETWEEN_COLUMN = 3;
+	private static final int CELLS_BETWEEN_COLUMN = 4;
 	
 	/**
 	 * If a random number [0, RANDOM_TURN_MULTIPLIER) is 0 then randomly turn the light cycle.
